@@ -106,6 +106,45 @@ public class CD {
         driver.findElement(By.tagName("body")).sendKeys(Keys.chord(Keys.CONTROL, "w"));
     }
 
+    public static WebElement MoveToElement(Locators locator, String value){
+        action = new Actions(CD.driver);
+        WebElement web = null;
+        switch (locator){
+            case xpath:
+                web = CD.driver.findElement(By.xpath(value));
+                action.moveToElement(web).perform();
+                break;
+            case id:
+                web = CD.driver.findElement(By.id(value));
+                action.moveToElement(web).perform();
+                break;
+            case name:
+                web = CD.driver.findElement(By.name(value));
+                action.moveToElement(web).perform();
+                break;
+            case cssSelector:
+                web = CD.driver.findElement(By.cssSelector(value));
+                action.moveToElement(web).perform();
+                break;
+            case tagName:
+                web = CD.driver.findElement(By.tagName(value));
+                action.moveToElement(web).perform();
+                break;
+            case parcialLinkText:
+                web = CD.driver.findElement(By.partialLinkText(value));
+                action.moveToElement(web).perform();
+                break;
+            case className:
+                web = CD.driver.findElement(By.className(value));
+                action.moveToElement(web).perform();
+                break;
+            case linkText:
+                web = CD.driver.findElement(By.linkText(value));
+                action.moveToElement(web).perform();
+                break;
+        }
+        return web;
+    }
 
     public static void MoveToElement(String locator, String value){
         action = new Actions(CD.driver);
@@ -139,6 +178,37 @@ public class CD {
         }
     }
 
+    public static WebElement CreateSelectObject(Locators locator, String value){
+        action = new Actions(CD.driver);
+        WebElement web = null;
+        switch (locator){
+            case xpath:
+                selected = new Select(driver.findElement(By.xpath(value)));
+                break;
+            case id:
+                selected = new Select(driver.findElement(By.id(value)));
+                break;
+            case name:
+                selected = new Select(driver.findElement(By.name(value)));
+                break;
+            case cssSelector:
+                selected = new Select(driver.findElement(By.cssSelector(value)));
+                break;
+            case tagName:
+                selected = new Select(driver.findElement(By.tagName(value)));
+                break;
+            case parcialLinkText:
+                selected = new Select(driver.findElement(By.partialLinkText(value)));
+                break;
+            case className:
+                selected = new Select(driver.findElement(By.className(value)));
+                break;
+            case linkText:
+                selected = new Select(driver.findElement(By.linkText(value)));
+                break;
+        }
+        return web;
+    }
 
     public static void CreateSelectObject(String locator, String value) {
         if(locator.equalsIgnoreCase("id")){
@@ -338,5 +408,8 @@ public class CD {
     public  static void Done(){
         driver.quit();
     }
+}
 
+enum Locators{
+    xpath, id, name, linkText, cssSelector, className, parcialLinkText, tagName
 }

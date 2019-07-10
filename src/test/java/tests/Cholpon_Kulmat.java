@@ -1,6 +1,4 @@
-import org.graalvm.compiler.hotspot.replacements.HotSpotReplacementsUtil;
-
-import java.sql.SQLOutput;
+package tests;
 
 public class Cholpon_Kulmat {
     public static void main(String[] args) {

@@ -1,3 +1,5 @@
+package utilities;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,6 +19,7 @@ public class CD {
     public static Select selected;
     public static Actions action;
     public static Alert alert;
+    public static String mainHandle;
 
     //    Set driver to Chrome and Open the browser to the injected link
     public static void SetChromeDriver(String link) {
@@ -54,6 +57,14 @@ public class CD {
 
     public static void CreateAlert(){
         alert = CD.driver.switchTo().alert();
+    }
+
+    public static void CreateMainHandle() {
+        mainHandle = CD.driver.getWindowHandle();
+    }
+
+    public static void switchWindow(String handle) {
+        CD.driver.switchTo().window(handle);
     }
 
     public static void ScrollToElement(String locator, String value){

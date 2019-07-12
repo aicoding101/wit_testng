@@ -27,6 +27,7 @@ public class Ameer extends TestBase {
 //        DESTINATIONS
         CD.FindAndClick("xpath", "//div//section//h2[contains(text(), \"Destinations\")]");
 
+
         Assert.assertTrue(CD.FindAndDisplay("xpath", "//h2[contains(text(), \"Destinations\")]"));
 
         CD.FindAndClick("xpath", "//main//section//div//section//span[@class='NorthAmerica ']");

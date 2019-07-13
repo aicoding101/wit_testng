@@ -67,30 +67,59 @@ public class CD {
         CD.driver.switchTo().window(handle);
     }
 
-    public static void ScrollToElement(String locator, String value){
+    public static void ScrollToElement(Locators locator, String value){
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        if(locator.equalsIgnoreCase("id")){
-            element = driver.findElement(By.id(value));
-        }else if(locator.equalsIgnoreCase("xpath")){
-            element = driver.findElement(By.xpath(value));
-        }else if(locator.equalsIgnoreCase("name")){
-            element = driver.findElement(By.name(value));
-        }else if(locator.equalsIgnoreCase("link")){
-            element = driver.findElement(By.linkText(value));
-        }else if(locator.equalsIgnoreCase("partial")){
-            element = driver.findElement(By.partialLinkText(value));
-        }else if(locator.equalsIgnoreCase("css")){
-            element = driver.findElement(By.cssSelector(value));
-        }else if(locator.equalsIgnoreCase("tag")){
-            element = driver.findElement(By.tagName(value));
-        }else if(locator.equalsIgnoreCase("className")){
-            element = driver.findElement(By.className(value));
-        }else{
-            System.out.println("Invalid locator");
-            Done();
+        switch (locator){
+            case xpath:
+                element = driver.findElement(By.xpath(value));
+                break;
+            case id:
+                element = driver.findElement(By.id(value));
+                break;
+            case name:
+                element = driver.findElement(By.name(value));
+                break;
+            case cssSelector:
+                element = driver.findElement(By.cssSelector(value));
+                break;
+            case tagName:
+                element = driver.findElement(By.tagName(value));
+                break;
+            case parcialLinkText:
+                element = driver.findElement(By.partialLinkText(value));
+                break;
+            case className:
+                element = driver.findElement(By.className(value));
+                break;
+            case linkText:
+                element = driver.findElement(By.linkText(value));
+                break;
         }
-//        js.executeScript("arguments[0].scrollIntoView();", element);
     }
+
+//    public static void ScrollToElement(String locator, String value){
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        if(locator.equalsIgnoreCase("id")){
+//            element = driver.findElement(By.id(value));
+//        }else if(locator.equalsIgnoreCase("xpath")){
+//            element = driver.findElement(By.xpath(value));
+//        }else if(locator.equalsIgnoreCase("name")){
+//            element = driver.findElement(By.name(value));
+//        }else if(locator.equalsIgnoreCase("link")){
+//            element = driver.findElement(By.linkText(value));
+//        }else if(locator.equalsIgnoreCase("partial")){
+//            element = driver.findElement(By.partialLinkText(value));
+//        }else if(locator.equalsIgnoreCase("css")){
+//            element = driver.findElement(By.cssSelector(value));
+//        }else if(locator.equalsIgnoreCase("tag")){
+//            element = driver.findElement(By.tagName(value));
+//        }else if(locator.equalsIgnoreCase("className")){
+//            element = driver.findElement(By.className(value));
+//        }else{
+//            System.out.println("Invalid locator");
+//            Done();
+//        }
+//    }
 
     //    Takes an integer of pixels to determine the range scrolled within a page (scroll down)
     public static void ScrollPage(int pixels){
@@ -106,7 +135,7 @@ public class CD {
         driver.findElement(By.tagName("body")).sendKeys(Keys.chord(Keys.CONTROL, "w"));
     }
 
-    public static WebElement MoveToElement(Locators locator, String value){
+    public static void MoveToElement(Locators locator, String value){
         action = new Actions(CD.driver);
         WebElement web = null;
         switch (locator){
@@ -143,44 +172,9 @@ public class CD {
                 action.moveToElement(web).perform();
                 break;
         }
-        return web;
     }
 
-    public static void MoveToElement(String locator, String value){
-        action = new Actions(CD.driver);
-        if(locator.equalsIgnoreCase("id")){
-            WebElement web = CD.driver.findElement(By.id(value));
-            action.moveToElement(web).perform();
-        }else if(locator.equalsIgnoreCase("xpath")){
-            WebElement web = CD.driver.findElement(By.xpath(value));
-            action.moveToElement(web).perform();
-        }else if(locator.equalsIgnoreCase("name")){
-            WebElement web = CD.driver.findElement(By.name(value));
-            action.moveToElement(web).perform();
-        }else if(locator.equalsIgnoreCase("link")){
-            WebElement web = CD.driver.findElement(By.linkText(value));
-            action.moveToElement(web).perform();
-        }else if(locator.equalsIgnoreCase("partial")){
-            WebElement web = CD.driver.findElement(By.partialLinkText(value));
-            action.moveToElement(web).perform();
-        }else if(locator.equalsIgnoreCase("css")){
-            WebElement web = CD.driver.findElement(By.cssSelector(value));
-            action.moveToElement(web).perform();
-        }else if(locator.equalsIgnoreCase("tag")){
-            WebElement web = CD.driver.findElement(By.tagName(value));
-            action.moveToElement(web).perform();
-        }else if(locator.equalsIgnoreCase("className")){
-            WebElement web = CD.driver.findElement(By.className(value));
-            action.moveToElement(web).perform();
-        }else{
-            System.out.println("Invalid locator");
-            ThatsIt();
-        }
-    }
-
-    public static WebElement CreateSelectObject(Locators locator, String value){
-        action = new Actions(CD.driver);
-        WebElement web = null;
+    public static void CreateSelectObject(Locators locator, String value){
         switch (locator){
             case xpath:
                 selected = new Select(driver.findElement(By.xpath(value)));
@@ -207,81 +201,149 @@ public class CD {
                 selected = new Select(driver.findElement(By.linkText(value)));
                 break;
         }
-        return web;
     }
 
-    public static void CreateSelectObject(String locator, String value) {
-        if(locator.equalsIgnoreCase("id")){
-            selected = new Select(driver.findElement(By.id(value)));
-        }else if(locator.equalsIgnoreCase("xpath")){
-            selected = new Select(driver.findElement(By.xpath(value)));
-        }else if(locator.equalsIgnoreCase("name")){
-            selected = new Select(driver.findElement(By.name(value)));
-        }else if(locator.equalsIgnoreCase("link")){
-            selected = new Select(driver.findElement(By.linkText(value)));
-        }else if(locator.equalsIgnoreCase("partial")){
-            selected = new Select(driver.findElement(By.partialLinkText(value)));
-        }else if(locator.equalsIgnoreCase("css")){
-            selected = new Select(driver.findElement(By.cssSelector(value)));
-        }else if(locator.equalsIgnoreCase("tag")){
-            selected = new Select(driver.findElement(By.tagName(value)));
-        }else if(locator.equalsIgnoreCase("className")){
-            selected = new Select(driver.findElement(By.className(value)));
-        }else{
-            System.out.println("Invalid locator");
-            Done();
+//    public static void CreateSelectObject(String locator, String value) {
+//        if(locator.equalsIgnoreCase("id")){
+//            selected = new Select(driver.findElement(By.id(value)));
+//        }else if(locator.equalsIgnoreCase("xpath")){
+//            selected = new Select(driver.findElement(By.xpath(value)));
+//        }else if(locator.equalsIgnoreCase("name")){
+//            selected = new Select(driver.findElement(By.name(value)));
+//        }else if(locator.equalsIgnoreCase("link")){
+//            selected = new Select(driver.findElement(By.linkText(value)));
+//        }else if(locator.equalsIgnoreCase("partial")){
+//            selected = new Select(driver.findElement(By.partialLinkText(value)));
+//        }else if(locator.equalsIgnoreCase("css")){
+//            selected = new Select(driver.findElement(By.cssSelector(value)));
+//        }else if(locator.equalsIgnoreCase("tag")){
+//            selected = new Select(driver.findElement(By.tagName(value)));
+//        }else if(locator.equalsIgnoreCase("className")){
+//            selected = new Select(driver.findElement(By.className(value)));
+//        }else{
+//            System.out.println("Invalid locator");
+//            Done();
+//        }
+//    }
+
+//    public static void CompareText(String locator, String value, String compare){
+//        if(locator.equalsIgnoreCase("id")){
+//            driver.findElement(By.id(value)).getText().contains(compare);
+//        }else if(locator.equalsIgnoreCase("xpath")){
+//            driver.findElement(By.xpath(value)).getText().contains(compare);
+//        }else if(locator.equalsIgnoreCase("name")){
+//            driver.findElement(By.name(value)).getText().contains(compare);
+//        }else if(locator.equalsIgnoreCase("link")){
+//            driver.findElement(By.linkText(value)).getText().contains(compare);
+//        }else if(locator.equalsIgnoreCase("partial")){
+//            driver.findElement(By.partialLinkText(value)).getText().contains(compare);
+//        }else if(locator.equalsIgnoreCase("css")){
+//            driver.findElement(By.cssSelector(value)).getText().contains(compare);
+//        }else if(locator.equalsIgnoreCase("tag")){
+//            driver.findElement(By.tagName(value)).getText().contains(compare);
+//        }else if(locator.equalsIgnoreCase("className")){
+//            driver.findElement(By.className(value)).getText().contains(compare);
+//        }else{
+//            System.out.println("Invalid locator");
+//            ThatsIt();
+//        }
+//    }
+
+    public static void CompareText(Locators locator, String value, String compare){
+        switch (locator){
+            case xpath:
+                driver.findElement(By.xpath(value)).getText().contains(compare);
+                break;
+            case id:
+                driver.findElement(By.id(value)).getText().contains(compare);
+                break;
+            case name:
+                driver.findElement(By.name(value)).getText().contains(compare);
+                break;
+            case cssSelector:
+                driver.findElement(By.cssSelector(value)).getText().contains(compare);
+                break;
+            case tagName:
+                driver.findElement(By.tagName(value)).getText().contains(compare);
+                break;
+            case parcialLinkText:
+                driver.findElement(By.partialLinkText(value)).getText().contains(compare);
+                break;
+            case className:
+                driver.findElement(By.className(value)).getText().contains(compare);
+                break;
+            case linkText:
+                driver.findElement(By.linkText(value)).getText().contains(compare);
+                break;
         }
     }
 
-    public static void CompareText(String locator, String value, String compare){
-        if(locator.equalsIgnoreCase("id")){
-            driver.findElement(By.id(value)).getText().contains(compare);
-        }else if(locator.equalsIgnoreCase("xpath")){
-            driver.findElement(By.xpath(value)).getText().contains(compare);
-        }else if(locator.equalsIgnoreCase("name")){
-            driver.findElement(By.name(value)).getText().contains(compare);
-        }else if(locator.equalsIgnoreCase("link")){
-            driver.findElement(By.linkText(value)).getText().contains(compare);
-        }else if(locator.equalsIgnoreCase("partial")){
-            driver.findElement(By.partialLinkText(value)).getText().contains(compare);
-        }else if(locator.equalsIgnoreCase("css")){
-            driver.findElement(By.cssSelector(value)).getText().contains(compare);
-        }else if(locator.equalsIgnoreCase("tag")){
-            driver.findElement(By.tagName(value)).getText().contains(compare);
-        }else if(locator.equalsIgnoreCase("className")){
-            driver.findElement(By.className(value)).getText().contains(compare);
-        }else{
-            System.out.println("Invalid locator");
-            ThatsIt();
+
+    public static void ClearField(Locators locator, String value){
+        switch (locator){
+            case xpath:
+                driver.findElement(By.xpath(value)).clear();
+                break;
+            case id:
+                driver.findElement(By.id(value)).clear();
+                break;
+            case name:
+                driver.findElement(By.name(value)).clear();
+                break;
+            case cssSelector:
+                driver.findElement(By.cssSelector(value)).clear();
+                break;
+            case tagName:
+                driver.findElement(By.tagName(value)).clear();
+                break;
+            case parcialLinkText:
+                driver.findElement(By.partialLinkText(value)).clear();
+                break;
+            case className:
+                driver.findElement(By.className(value)).clear();
+                break;
+            case linkText:
+                driver.findElement(By.linkText(value)).clear();
+                break;
         }
     }
 
     //    Clear text from selected field
-    public static void ClearField(String locator, String value){
-        if(locator.equalsIgnoreCase("id")){
-            driver.findElement(By.id(value)).clear();
-        }else if(locator.equalsIgnoreCase("xpath")){
-            driver.findElement(By.xpath(value)).clear();
-        }else if(locator.equalsIgnoreCase("name")){
-            driver.findElement(By.name(value)).clear();
-        }else if(locator.equalsIgnoreCase("link")){
-            driver.findElement(By.linkText(value)).clear();
-        }else if(locator.equalsIgnoreCase("partial")){
-            driver.findElement(By.partialLinkText(value)).clear();
-        }else if(locator.equalsIgnoreCase("css")){
-            driver.findElement(By.cssSelector(value)).clear();
-        }else if(locator.equalsIgnoreCase("tag")){
-            driver.findElement(By.tagName(value)).clear();
-        }else if(locator.equalsIgnoreCase("className")){
-            driver.findElement(By.className(value)).clear();
-        }else{
-            System.out.println("Invalid locator");
-            ThatsIt();
-        }
-    }
+//    public static void ClearField(String locator, String value){
+//        if(locator.equalsIgnoreCase("id")){
+//            driver.findElement(By.id(value)).clear();
+//        }else if(locator.equalsIgnoreCase("xpath")){
+//            driver.findElement(By.xpath(value)).clear();
+//        }else if(locator.equalsIgnoreCase("name")){
+//            driver.findElement(By.name(value)).clear();
+//        }else if(locator.equalsIgnoreCase("link")){
+//            driver.findElement(By.linkText(value)).clear();
+//        }else if(locator.equalsIgnoreCase("partial")){
+//            driver.findElement(By.partialLinkText(value)).clear();
+//        }else if(locator.equalsIgnoreCase("css")){
+//            driver.findElement(By.cssSelector(value)).clear();
+//        }else if(locator.equalsIgnoreCase("tag")){
+//            driver.findElement(By.tagName(value)).clear();
+//        }else if(locator.equalsIgnoreCase("className")){
+//            driver.findElement(By.className(value)).clear();
+//        }else{
+//            System.out.println("Invalid locator");
+//            ThatsIt();
+//        }
+//    }
 
     //    Tells us if a test passed or failed
     public static String PassOrFail(boolean b) {
+
+//        switch (b){
+//            case true:
+//                return "PASSED";
+//                break;
+//            case false:
+//                return "FAILED";
+//                break;
+//        }
+
         if(b) {
             return "PASSED";
         } else {
@@ -294,112 +356,136 @@ public class CD {
         driver.manage().window().maximize();
     }
 
-    //    Find element (clickable field) in page and click
+//    Find element (clickable field) in page and click
 //    Can also be used to click on random text (when you want to click away from a certain field)
 //    locator: choose locator type (eg. name, id, xpath, etc.)
 //    value: value of element based on locator (eg. locator name: element "some name")
-    public static void FindAndClick(String locator, String value){
-        if(locator.equalsIgnoreCase("id")){
-            driver.findElement(By.id(value)).click();
-        }else if(locator.equalsIgnoreCase("xpath")){
-            driver.findElement(By.xpath(value)).click();
-        }else if(locator.equalsIgnoreCase("name")){
-            driver.findElement(By.name(value)).click();
-        }else if(locator.equalsIgnoreCase("link")){
-            driver.findElement(By.linkText(value)).click();
-        }else if(locator.equalsIgnoreCase("partial")){
-            driver.findElement(By.partialLinkText(value)).click();
-        }else if(locator.equalsIgnoreCase("css")){
-            driver.findElement(By.cssSelector(value)).click();
-        }else if(locator.equalsIgnoreCase("tag")){
-            driver.findElement(By.tagName(value)).click();
-        }else if(locator.equalsIgnoreCase("className")){
-            driver.findElement(By.className(value)).click();
-        }else{
-            System.out.println("Invalid locator");
-            ThatsIt();
+    public static void FindAndClick(Locators locator, String value){
+        switch (locator){
+            case xpath:
+                driver.findElement(By.xpath(value)).click();
+                break;
+            case id:
+                driver.findElement(By.id(value)).click();
+                break;
+            case name:
+                driver.findElement(By.name(value)).click();
+                break;
+            case cssSelector:
+                driver.findElement(By.cssSelector(value)).click();
+                break;
+            case tagName:
+                driver.findElement(By.tagName(value)).click();
+                break;
+            case parcialLinkText:
+                driver.findElement(By.partialLinkText(value)).click();
+                break;
+            case className:
+                driver.findElement(By.className(value)).click();
+                break;
+            case linkText:
+                driver.findElement(By.linkText(value)).click();
+                break;
         }
     }
 
-    //    Find element (text box) in a page and send given keys
+//    Find element (text box) in a page and send given keys
 //    locator: choose locator type (eg. name, id, xpath, etc.)
 //    value: value of element based on locator (eg. locator name: element "some name")
 //    send: value to be sent to input box (eg. locator id: element "some id", send "some text you want to input")
-    public static void FindAndSendKeys(String locator, String value, String send){
-        if(locator.equalsIgnoreCase("id")){
-            driver.findElement(By.id(value)).sendKeys(send);
-        }else if(locator.equalsIgnoreCase("xpath")){
-            driver.findElement(By.xpath(value)).sendKeys(send);
-        }else if(locator.equalsIgnoreCase("name")){
-            driver.findElement(By.name(value)).sendKeys(send);
-        }else if(locator.equalsIgnoreCase("link")){
-            driver.findElement(By.linkText(value)).sendKeys(send);
-        }else if(locator.equalsIgnoreCase("partial")){
-            driver.findElement(By.partialLinkText(value)).sendKeys(send);
-        }else if(locator.equalsIgnoreCase("css")){
-            driver.findElement(By.cssSelector(value)).sendKeys(send);
-        }else if(locator.equalsIgnoreCase("tag")){
-            driver.findElement(By.tagName(value)).sendKeys(send);
-        }else if(locator.equalsIgnoreCase("className")){
-            driver.findElement(By.className(value)).sendKeys(send);
-        }else{
-            System.out.println("Invalid locator");
-            ThatsIt();
+    public static void FindAndSendKeys(Locators locator, String value, String send){
+        switch (locator){
+            case xpath:
+                driver.findElement(By.xpath(value)).sendKeys(send);
+                break;
+            case id:
+                driver.findElement(By.id(value)).sendKeys(send);
+                break;
+            case name:
+                driver.findElement(By.name(value)).sendKeys(send);
+                break;
+            case cssSelector:
+                driver.findElement(By.cssSelector(value)).sendKeys(send);
+                break;
+            case tagName:
+                driver.findElement(By.tagName(value)).sendKeys(send);
+                break;
+            case parcialLinkText:
+                driver.findElement(By.partialLinkText(value)).sendKeys(send);
+                break;
+            case className:
+                driver.findElement(By.className(value)).sendKeys(send);
+                break;
+            case linkText:
+                driver.findElement(By.linkText(value)).sendKeys(send);
+                break;
         }
     }
 
-    //    Find element (text box) in a page and send given keys, then enter
+//    Find element (text box) in a page and send given keys, then enter
 //    locator: choose locator type (eg. name, id, xpath, etc.)
 //    value: value of element based on locator (eg. locator name: element "some name")
 //    send: value to be sent to input box (eg. locator id: element "some id", send "some text you want to input")
-    public static void FindAndSendKeysENTER(String locator, String value, String send){
-        if(locator.equalsIgnoreCase("id")){
-            driver.findElement(By.id(value)).sendKeys(send + Keys.ENTER);
-        }else if(locator.equalsIgnoreCase("xpath")){
-            driver.findElement(By.xpath(value)).sendKeys(send + Keys.ENTER);
-        }else if(locator.equalsIgnoreCase("name")){
-            driver.findElement(By.name(value)).sendKeys(send + Keys.ENTER);
-        }else if(locator.equalsIgnoreCase("link")){
-            driver.findElement(By.linkText(value)).sendKeys(send + Keys.ENTER);
-        }else if(locator.equalsIgnoreCase("partial")){
-            driver.findElement(By.partialLinkText(value)).sendKeys(send + Keys.ENTER);
-        }else if(locator.equalsIgnoreCase("css")){
-            driver.findElement(By.cssSelector(value)).sendKeys(send + Keys.ENTER);
-        }else if(locator.equalsIgnoreCase("tag")){
-            driver.findElement(By.tagName(value)).sendKeys(send + Keys.ENTER);
-        }else if(locator.equalsIgnoreCase("className")){
-            driver.findElement(By.className(value)).sendKeys(send + Keys.ENTER);
-        }else{
-            System.out.println("Invalid locator");
-            ThatsIt();
+    public static void FindAndSendKeysENTER(Locators locator, String value, String send){
+        switch (locator){
+            case xpath:
+                driver.findElement(By.xpath(value)).sendKeys(send + Keys.ENTER);
+                break;
+            case id:
+                driver.findElement(By.id(value)).sendKeys(send + Keys.ENTER);
+                break;
+            case name:
+                driver.findElement(By.name(value)).sendKeys(send + Keys.ENTER);
+                break;
+            case cssSelector:
+                driver.findElement(By.cssSelector(value)).sendKeys(send + Keys.ENTER);
+                break;
+            case tagName:
+                driver.findElement(By.tagName(value)).sendKeys(send + Keys.ENTER);
+                break;
+            case parcialLinkText:
+                driver.findElement(By.partialLinkText(value)).sendKeys(send + Keys.ENTER);
+                break;
+            case className:
+                driver.findElement(By.className(value)).sendKeys(send + Keys.ENTER);
+                break;
+            case linkText:
+                driver.findElement(By.linkText(value)).sendKeys(send + Keys.ENTER);
+                break;
         }
     }
 
-    //    Find element on a page and check if it is displayed
+//    Find element on a page and check if it is displayed
 //    locator: choose locator type (eg. name, id, xpath, etc.)
 //    value: value of element based on locator (eg. locator name: element "some name")
-    public static boolean FindAndDisplay(String locator, String value) {
-        if (locator.equalsIgnoreCase("id")) {
-            return driver.findElement(By.id(value)).isDisplayed();
-        } else if (locator.equalsIgnoreCase("xpath")) {
-            return driver.findElement(By.xpath(value)).isDisplayed();
-        } else if (locator.equalsIgnoreCase("name")) {
-            return driver.findElement(By.name(value)).isDisplayed();
-        } else if (locator.equalsIgnoreCase("link")) {
-            return driver.findElement(By.linkText(value)).isDisplayed();
-        } else if (locator.equalsIgnoreCase("partial")) {
-            return driver.findElement(By.partialLinkText(value)).isDisplayed();
-        } else if (locator.equalsIgnoreCase("css")) {
-            return driver.findElement(By.cssSelector(value)).isDisplayed();
-        } else if (locator.equalsIgnoreCase("tag")) {
-            return driver.findElement(By.tagName(value)).isDisplayed();
-        } else if (locator.equalsIgnoreCase("className")) {
-            return driver.findElement(By.className(value)).isDisplayed();
-        } else {
-            System.out.println("Invalid locator");
-            ThatsIt();
-            return false;
+    public static boolean FindAndDisplay(Locators locator, String value) {
+        switch (locator){
+            case xpath:
+                driver.findElement(By.xpath(value)).isDisplayed();
+                break;
+            case id:
+                driver.findElement(By.id(value)).isDisplayed();
+                break;
+            case name:
+                driver.findElement(By.name(value)).isDisplayed();
+                break;
+            case cssSelector:
+                driver.findElement(By.cssSelector(value)).isDisplayed();
+                break;
+            case tagName:
+                driver.findElement(By.tagName(value)).isDisplayed();
+                break;
+            case parcialLinkText:
+                driver.findElement(By.partialLinkText(value)).isDisplayed();
+                break;
+            case className:
+                driver.findElement(By.className(value)).isDisplayed();
+                break;
+            case linkText:
+                driver.findElement(By.linkText(value)).isDisplayed();
+                break;
         }
+        return false;
     }
 
     //    THAT'S IT!
@@ -408,8 +494,10 @@ public class CD {
     public  static void Done(){
         driver.quit();
     }
+
+    public enum Locators{
+        xpath, id, name, linkText, cssSelector, className, parcialLinkText, tagName
+    }
+
 }
 
-enum Locators{
-    xpath, id, name, linkText, cssSelector, className, parcialLinkText, tagName
-}

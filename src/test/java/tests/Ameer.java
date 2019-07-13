@@ -1,6 +1,9 @@
 package tests;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -64,6 +67,8 @@ public class Ameer extends TestBase {
     @Test
     public static void ParksAndTravelDropdownVerification(){
         String linkCompare = "";
+
+        WebDriverWait wait = new WebDriverWait(driver, 20);
 
         CD.WaitTime(20);
 //        CD.MoveToElement("xpath", "//body//div//span/li[@class='goc-desktop goc-parks goc-top-dropdown goc-left-2']");
@@ -204,10 +209,10 @@ public class Ameer extends TestBase {
         CD.ScrollToElement("xpath", "//body//div//section[@id='ref-1-9']");
         CD.FindAndClick("xpath", "//body//div//section[@id='ref-1-9']//button[@title='Next']");
 
-        Assert.assertTrue(CD.FindAndDisplay("xpath", "//body//div/a[@data-title='Disney Family']"));
+        Assert.assertTrue(CD.FindAndDisplay("xpath", "//div//a//img[@alt='Disney Family']"));
 
-        linkCompare = CD.driver.findElement(By.xpath("//body//div/a[@data-title='Disney Family']")).getAttribute("href");
-        CD.FindAndClick("xpath", "//body//div/a[@data-title='Disney Family']");
+        linkCompare = CD.driver.findElement(By.xpath("//div//a//img[@alt='Disney Family']")).getAttribute("href");
+        CD.FindAndClick("xpath", "//div//a//img[@alt='Disney Family']");
 
         Assert.assertEquals(CD.driver.getCurrentUrl(), linkCompare);
 
@@ -217,7 +222,7 @@ public class Ameer extends TestBase {
         CD.ScrollToElement("xpath", "//body//div//section[@id='ref-1-9']");
         CD.FindAndClick("xpath", "//body//div//section[@id='ref-1-9']//button[@title='Next']");
 
-        Assert.assertTrue(CD.FindAndDisplay("xpath", "//body//div/a[@data-title='Star Wars']"));
+        Assert.assertTrue(CD.FindAndDisplay("xpath", "//div//a//img[@alt='Star Wars']"));
 
         linkCompare = CD.driver.findElement(By.xpath("//body//div/a[@data-title='Star Wars']")).getAttribute("href");
         CD.FindAndClick("xpath", "//body//div/a[@data-title='Star Wars']");
